@@ -16,6 +16,7 @@ public class GameSystem : MonoBehaviour {
 		Debug.Assert (startLocation != null);
 
 		player = Instantiate(playerPrefab);
+		player.GetComponent<PlayerControls> ().system = this;
 		player.transform.position = startLocation.transform.position;
 	}
 

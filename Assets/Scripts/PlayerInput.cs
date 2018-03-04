@@ -32,22 +32,24 @@ public class PlayerInput : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			controls.input.command = Command.Jump;
-		} else if ((Input.GetKeyDown(KeyCode.Q) && Input.GetKey(KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized(GestureType.LeftBend)) {
+		} else if ((Input.GetKeyDown (KeyCode.Q) && Input.GetKey (KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized (GestureType.LeftBend)) {
 			controls.input.command = Command.LeftBend;
-		} else if ((Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized(GestureType.UpBend)) {
+		} else if ((Input.GetKeyDown (KeyCode.W) && Input.GetKey (KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized (GestureType.UpBend)) {
 			controls.input.command = Command.UpBend;
-		} else if ((Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized(GestureType.RightBend)) {
+		} else if ((Input.GetKeyDown (KeyCode.E) && Input.GetKey (KeyCode.LeftShift)) || GestureRecognitionSystem.GetGestureRecognized (GestureType.RightBend)) {
 			controls.input.command = Command.RightBend;
-		}  else if (Input.GetKeyDown(KeyCode.Q) || GestureRecognitionSystem.GetGestureRecognized(GestureType.LeftPunch)) {
+		} else if (Input.GetKeyDown (KeyCode.Q) || GestureRecognitionSystem.GetGestureRecognized (GestureType.LeftPunch)) {
 			controls.input.command = Command.LeftPunch;
-		} else if (Input.GetKeyDown(KeyCode.W) || GestureRecognitionSystem.GetGestureRecognized(GestureType.UpperCut)) {
+		} else if (Input.GetKeyDown (KeyCode.W) || GestureRecognitionSystem.GetGestureRecognized (GestureType.UpperCut)) {
 			controls.input.command = Command.UpPunch;
-		} else if (Input.GetKeyDown(KeyCode.E) || GestureRecognitionSystem.GetGestureRecognized(GestureType.RightPunch)) {
+		} else if (Input.GetKeyDown (KeyCode.E) || GestureRecognitionSystem.GetGestureRecognized (GestureType.RightPunch)) {
 			controls.input.command = Command.RightPunch;
-		} else if (Input.GetKey(KeyCode.A) || (leftJoycon != null && leftJoycon.GetButton(Joycon.Button.SHOULDER_1))) {
+		} else if (Input.GetKey (KeyCode.A) || (leftJoycon != null && leftJoycon.GetButton (Joycon.Button.SHOULDER_1))) {
 			controls.input.command = Command.Left;
-		} else if (Input.GetKey(KeyCode.D) || (rightJoycon != null && rightJoycon.GetButton(Joycon.Button.SHOULDER_1))) {
+		} else if (Input.GetKey (KeyCode.D) || (rightJoycon != null && rightJoycon.GetButton (Joycon.Button.SHOULDER_1))) {
 			controls.input.command = Command.Right;
+		} else if (Input.GetKey (KeyCode.R)) {
+			controls.input.command = Command.Reset;
 		}
 	}
 }

@@ -19,12 +19,14 @@ public enum Command {
 	UpPunch,
 	LeftBend,
 	RightBend,
-	UpBend
+	UpBend,
+	Reset
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerControls : MonoBehaviour {
-	
+
+	public GameSystem system;
 	public float upPunchStrength = 10;
 	public float moveSpeed = 1;
 	public int maxAerials = 2;
@@ -33,6 +35,7 @@ public class PlayerControls : MonoBehaviour {
 	public float punchDuration = 0.5f;
 	[HideInInspector]
 	public InputState input;
+	public int keys = 0;
 
 	private StateNode previous;
 	private StateNode current;
@@ -93,7 +96,7 @@ public class PlayerControls : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void LateUpdate () {
 		// Process the inputs and set a new input frame 
 		previous = state.CurrentState();
 		state.Process (input);
@@ -114,10 +117,13 @@ public class PlayerControls : MonoBehaviour {
 			rb.velocity = new Vector2 (0, upPunchStrength);
 		} else if (current.name == "leftbend") {
 			input.colliders [3] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Left);
+			input.aerial = maxAerials;  // Reset aerials
 		} else if (current.name == "rightbend") {
 			input.colliders [2] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Right);
+			input.aerial = maxAerials;  // Reset aerials
 		} else if (current.name == "upbend") {
 			input.colliders [1] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Up);
+			input.aerial = maxAerials;  // Reset aerials
 		} else if (current.name == "air") {
 			Time.timeScale = timeSlow;
 		} else if (current.name == "grounded") {
@@ -134,6 +140,9 @@ public class PlayerControls : MonoBehaviour {
 			input.aerial--;
 		}
 
+		if (input.command == Command.Reset) {
+			system.Reset ();
+		}
 		input.command = Command.None;
 	}
 
