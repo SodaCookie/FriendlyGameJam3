@@ -18,7 +18,7 @@ public class StoneBendBlock : MonoBehaviour {
 		switch (direction) {
 		case Direction.Up:
 			// Bend upwards
-			player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, launchPower);
+			player.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, launchPower);
 			block.transform.position = player.transform.position + Vector3.down * 1.05f;
 			StartCoroutine (MoveBlock(block, player.transform.position, Vector3.down));
 			break;
@@ -32,12 +32,14 @@ public class StoneBendBlock : MonoBehaviour {
 			// Bend right
 			player.GetComponent<Rigidbody2D>().velocity = new Vector2(-launchPower, 5);
 			block.transform.position = player.transform.position + Vector3.right * 1.05f;
+			block.transform.rotation = Quaternion.Euler (0, 0, -90);
 			StartCoroutine (MoveBlock(block, player.transform.position, Vector3.right));
 			break;
 		case Direction.Right:
 			// Bend left
 			player.GetComponent<Rigidbody2D>().velocity = new Vector2(launchPower, 5);
 			block.transform.position = player.transform.position + Vector3.left * 1.05f;
+			block.transform.rotation = Quaternion.Euler (0, 0, 90);
 			StartCoroutine (MoveBlock(block, player.transform.position, Vector3.left));
 			break;
 		}

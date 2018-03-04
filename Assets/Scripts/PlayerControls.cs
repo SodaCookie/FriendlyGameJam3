@@ -199,6 +199,10 @@ public class PlayerControls : MonoBehaviour {
 			return "rightpunch";
 		} else if (input.command == Command.UpPunch && input.aerial > 0) {
 			return "uppunch";
+		} else if (input.command == Command.LeftBend && input.colliders[3].Count > 0) {
+			return "leftbend";
+		} else if (input.command == Command.RightBend && input.colliders[2].Count > 0) {
+			return "rightbend";
 		}
 		return null;
 	}
