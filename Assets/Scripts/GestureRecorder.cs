@@ -28,6 +28,8 @@ public class GestureRecorder : MonoBehaviour {
             Debug.LogError("Unable to find left and right joycon!");
             Destroy(gameObject);
         }
+
+        gesture.LoadData();
 	}
 	
 	// Update is called once per frame
@@ -46,8 +48,6 @@ public class GestureRecorder : MonoBehaviour {
     public void EndRecording()
     {
         recording = false;
-        gesture.data = recordingBuffer;
-        gesture.SaveData();
     }
 
     public void RecordCurrentInputs()
@@ -82,8 +82,16 @@ public class GestureRecorder : MonoBehaviour {
             if (recording)
             {
                 EndRecording();
-                Debug.Log("End Recording");
+                Debug.Log("End Recording" + " | Count: " + recordingBuffer.Count);
             }
+        }
+
+        if (rightJoycon.GetButtonDown(Joycon.Button.HOME) && recordingBuffer.Count > 0)
+        {
+            gesture.data.Add(new List<Gesture.DataPoint>(recordingBuffer));
+            gesture.SaveData();
+            Debug.Log(gesture.GetStatus());
+            recordingBuffer.Clear();
         }
     }
 }

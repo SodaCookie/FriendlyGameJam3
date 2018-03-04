@@ -79,7 +79,7 @@ public class JoyconManager: MonoBehaviour
 			Debug.Log (i);
 			Joycon jc = j [i];
 			byte LEDs = 0x0;
-			LEDs |= (byte)(0x1 << i);
+			LEDs |= (byte)(0x1 << i/2);
 			jc.Attach (leds_: LEDs);
 			jc.Begin ();
 		}
