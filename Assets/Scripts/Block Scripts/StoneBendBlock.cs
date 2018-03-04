@@ -51,6 +51,7 @@ public class StoneBendBlock : MonoBehaviour {
 			block.transform.position = playerPosition + (direction * (float)i / 5f);
 			yield return null;
 		}
+        yield return new WaitForSeconds(0.1f);
 		block.GetComponent<BoxCollider2D> ().enabled = true;
 	}
 }
