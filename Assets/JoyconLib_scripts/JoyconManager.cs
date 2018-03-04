@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
+
 public class JoyconManager: MonoBehaviour
 {
 
@@ -27,29 +29,46 @@ public class JoyconManager: MonoBehaviour
 
     void Awake()
     {
+        SceneManager.sceneUnloaded += OnSceneExit;
+        Debug.Log("Checkpoint");
         if (instance != null) Destroy(gameObject);
         instance = this;
 		int i = 0;
+        Debug.Log("Checkpoint");
 
-		j = new List<Joycon>();
+        j = new List<Joycon>();
 		bool isLeft = false;
-		HIDapi.hid_init();
+        Debug.Log("Checkpoint");
 
-		IntPtr ptr = HIDapi.hid_enumerate(vendor_id, 0x0);
-		IntPtr top_ptr = ptr;
+        HIDapi.hid_init();
+        Debug.Log("Checkpoint");
 
-		if (ptr == IntPtr.Zero)
+        IntPtr ptr = HIDapi.hid_enumerate(vendor_id, 0x0);
+        Debug.Log("Checkpoint");
+
+        IntPtr top_ptr = ptr;
+        Debug.Log("Checkpoint");
+
+        if (ptr == IntPtr.Zero)
 		{
-			ptr = HIDapi.hid_enumerate(vendor_id_, 0x0);
+            Debug.Log("SubCheckpoint");
+
+            ptr = HIDapi.hid_enumerate(vendor_id_, 0x0);
 			if (ptr == IntPtr.Zero)
-			{ 
-				HIDapi.hid_free_enumeration(ptr);
+			{
+                Debug.Log("SubCheckpoint");
+
+                HIDapi.hid_free_enumeration(ptr);
 				Debug.Log ("No Joy-Cons found!");
 			}
 		}
-		hid_device_info enumerate;
+        Debug.Log("Checkpoint");
+
+        hid_device_info enumerate;
 		while (ptr != IntPtr.Zero) {
-			enumerate = (hid_device_info)Marshal.PtrToStructure (ptr, typeof(hid_device_info));
+            Debug.Log("Checkpoint");
+
+            enumerate = (hid_device_info)Marshal.PtrToStructure (ptr, typeof(hid_device_info));
 
 			Debug.Log (enumerate.product_id);
 				if (enumerate.product_id == product_l || enumerate.product_id == product_r) {
@@ -95,10 +114,20 @@ public class JoyconManager: MonoBehaviour
 
     void OnApplicationQuit()
     {
-		for (int i = 0; i < j.Count; ++i)
-		{
-			j[i].Detach ();
-		}
+        ExitProtocol();
+    }
+
+    public void ExitProtocol()
+    {
+        for (int i = 0; i < j.Count; ++i)
+        {
+            j[i].Detach();
+        }
         HIDapi.hid_exit();
+    }
+
+    public void OnSceneExit(Scene scene)
+    {
+        ExitProtocol();
     }
 }

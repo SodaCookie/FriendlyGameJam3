@@ -223,7 +223,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f565ee51b4d724ee5b987055843ccadd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upPunchStrength: 15
-  moveSpeed: 5
+  upPunchStrength: 10
+  moveSpeed: 2
   maxAerials: 2
   punchVelocity: {x: 30, y: 0.1}
   punchDuration: 0.1
