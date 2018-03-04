@@ -53,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4750802050252740}
   - component: {fileID: 61640685475443576}
+  - component: {fileID: 114635852323234562}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -260,10 +261,10 @@ BoxCollider2D:
   m_Offset: {x: -0.00016635656, y: 1.0060343}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -309,6 +310,17 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114635852323234562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1692453815405422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f58cb37542ab4419894f5963768ae2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114924576766829670
 MonoBehaviour:
   m_ObjectHideFlags: 1
