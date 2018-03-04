@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Levels/TutorialLevels/1-2.unity
-    guid: 51e9c6bfd5043bc4b9c74106e0e91e0d
-  - enabled: 1
     path: Assets/Scenes/Levels/TutorialLevels/1-1.unity
     guid: 9bf0f310d57d944b68782060bd0102ea
+  - enabled: 1
+    path: Assets/Scenes/Levels/TutorialLevels/1-2.unity
+    guid: 51e9c6bfd5043bc4b9c74106e0e91e0d
   - enabled: 1
     path: Assets/Scenes/Levels/TutorialLevels/1-3.unity
     guid: 70a13005275b88f46b12d874ba9fe9ce
@@ -20,3 +20,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/TutorialLevels/1-5.unity
     guid: f80c4f1105a6d984b860c75d30be750e
+  - enabled: 1
+    path: Assets/Scenes/Levels/Begginer/2-1.unity
+    guid: 6cfc05a932fef8e49a80cf61d4150634
+  - enabled: 1
+    path: Assets/Scenes/Levels/Begginer/2-2.unity
+    guid: ebab8e858410a5c4599d2248399e169d
+  - enabled: 1
+    path: Assets/Scenes/Levels/Begginer/2-3.unity
+    guid: f6572a33709c7154aa8d0d426422f3c3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Begginer/2-4.unity
+    guid: 90b7fd8ad8cff4c41aad065d595d302c
+  - enabled: 1
+    path: Assets/Scenes/Levels/Begginer/2-5.unity
+    guid: c84fa91f71dc3aa4783be045dd1a3b5e
+  - enabled: 1
+    path: Assets/Scenes/Levels/Intermediate/3-1.unity
+    guid: d5b1d6907b3f390458ec08743e2879ed
+  - enabled: 1
+    path: Assets/Scenes/Levels/Intermediate/3-2.unity
+    guid: c98f900778a63e4429f4f84e98cca1b9
