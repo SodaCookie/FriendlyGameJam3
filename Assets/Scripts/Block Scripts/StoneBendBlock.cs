@@ -46,9 +46,11 @@ public class StoneBendBlock : MonoBehaviour {
 	}
 
 	IEnumerator MoveBlock(GameObject block, Vector3 playerPosition, Vector3 direction) {
+		block.GetComponent<BoxCollider2D> ().enabled = false;
 		for (int i = 5; i >= 0 ; i--) {
 			block.transform.position = playerPosition + (direction * (float)i / 5f);
 			yield return null;
 		}
+		block.GetComponent<BoxCollider2D> ().enabled = true;
 	}
 }
