@@ -28,6 +28,7 @@ public class PlayerControls : MonoBehaviour {
 	public float upPunchStrength = 10;
 	public float moveSpeed = 1;
 	public int maxAerials = 2;
+	public float timeSlow = 0.5f;
 	public Vector2 punchVelocity = new Vector2(10, 0);
 	public float punchDuration = 0.5f;
 	[HideInInspector]
@@ -106,18 +107,22 @@ public class PlayerControls : MonoBehaviour {
 				rb.velocity = new Vector2 (moveSpeed, rb.velocity.y);
 			}
 		} else if (current.name == "leftpunch") {
-			StartCoroutine(Dash(new Vector2(-punchVelocity.x, punchVelocity.y)));
+			StartCoroutine (Dash (new Vector2 (-punchVelocity.x, punchVelocity.y)));
 		} else if (current.name == "rightpunch") {
-			StartCoroutine(Dash(new Vector2(punchVelocity.x, punchVelocity.y)));
+			StartCoroutine (Dash (new Vector2 (punchVelocity.x, punchVelocity.y)));
 		} else if (current.name == "uppunch") {
 			rb.velocity = new Vector2 (0, upPunchStrength);
 		} else if (current.name == "leftbend") {
-			input.colliders [3][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Left);
+			input.colliders [3] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Left);
 		} else if (current.name == "rightbend") {
-			input.colliders [2][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Right);
+			input.colliders [2] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Right);
 		} else if (current.name == "upbend") {
-			input.colliders [1][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Up);
-		} 
+			input.colliders [1] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Up);
+		} else if (current.name == "air") {
+			Time.timeScale = timeSlow;
+		} else if (current.name == "grounded") {
+			Time.timeScale = 1f;
+		}
 
 		// Transitions
 		if (previous.name == "move" && (current.name == "air" || current.name == "grounded")) {
