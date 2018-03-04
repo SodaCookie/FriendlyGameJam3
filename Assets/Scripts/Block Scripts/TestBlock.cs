@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Bendable))]
+[RequireComponent(typeof(Interactable))]
 public class TestBlock : MonoBehaviour {
 
 	void Start () {
-		Bendable bendable = GetComponent<Bendable> ();
+		Interactable bendable = GetComponent<Interactable> ();
 		bendable.OnBend += OnBend;
 	}
 	
-	void OnBend (GameObject player) {
+	void OnBend (GameObject player, Direction direction) {
 		print ("WHOA YOU ARE A BENDER");
 	}
 }

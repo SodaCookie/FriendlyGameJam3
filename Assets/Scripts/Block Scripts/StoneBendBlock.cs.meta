@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 638b881c45d3449dc989e9861d6c974f
+timeCreated: 1520118672
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bendPrefab: {fileID: 1446117416847572, guid: cc055ba9d8d6642c5bf589876c92f5a2,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

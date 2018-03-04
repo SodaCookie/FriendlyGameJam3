@@ -12,15 +12,17 @@ public class PlayerEdge : MonoBehaviour {
 	public Direction direction;
 	public PlayerControls controls;
 
-	void OnTriggerEnter2D(Collider2D other) {
-		controls.input.collisions [(int)direction] = true;
-		if (other.GetComponent<Bendable> ()) {
-			controls.input.colliders [(int)direction] = other;
+	void OnCollisionEnter2D(Collision2D other) {
+		controls.input.collisions [(int)direction] += 1;
+		if (other.gameObject.GetComponent<Interactable> ()) {
+			controls.input.colliders [(int)direction].Add(other.gameObject);
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
-		controls.input.collisions [(int)direction] = false;
-		controls.input.colliders [(int)direction] = null;
+	void OnCollisionExit2D(Collision2D other) {
+		controls.input.collisions [(int)direction] -= 1;
+		if (other.gameObject.GetComponent<Interactable> ()) {
+			controls.input.colliders [(int)direction].Remove(other.gameObject);
+		}
 	}
 }

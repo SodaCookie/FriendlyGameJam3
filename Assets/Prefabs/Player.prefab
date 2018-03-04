@@ -71,7 +71,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4088556281833612}
   - component: {fileID: 50842435602821456}
-  - component: {fileID: 61338625228209902}
   - component: {fileID: 114676982693345126}
   - component: {fileID: 114828068095184780}
   - component: {fileID: 23142487777794372}
@@ -230,31 +229,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61338625228209902
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1884033757054524}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.2, y: 0.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!68 &68543520492624466
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -264,14 +238,14 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.45, y: -0.51}
-  - {x: 0.45, y: -0.51}
+  - {x: -0.49, y: -0.5}
+  - {x: 0.49, y: -0.5}
 --- !u!68 &68555570889785996
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -281,14 +255,14 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.51, y: 0.45}
-  - {x: 0.51, y: -0.45}
+  - {x: 0.499, y: 0.49}
+  - {x: 0.499, y: -0.49}
 --- !u!68 &68840007608883166
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -298,14 +272,14 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.51, y: 0.45}
-  - {x: -0.51, y: -0.45}
+  - {x: -0.499, y: 0.49}
+  - {x: -0.499, y: -0.49}
 --- !u!68 &68936670957082446
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -315,14 +289,14 @@ EdgeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.45, y: 0.51}
-  - {x: 0.45, y: 0.51}
+  - {x: -0.49, y: 0.5}
+  - {x: 0.49, y: 0.5}
 --- !u!114 &114015031289908152
 MonoBehaviour:
   m_ObjectHideFlags: 1

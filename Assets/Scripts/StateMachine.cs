@@ -37,7 +37,6 @@ public class StateMachine {
 				if (!nodes.ContainsKey (newNode)) {
 					Debug.Log ("Not found: " + newNode + " in states");
 				} else {
-					// Debug.Log (currentNode.name + " " + newNode);
 					currentNode = nodes [newNode];
 				}
 			}

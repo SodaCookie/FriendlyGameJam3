@@ -4,8 +4,8 @@ using UnityEngine;
 
 public struct InputState {
 	public Command command;
-	public bool[] collisions;
-	public Collider2D[] colliders;
+	public int[] collisions;
+	public List<GameObject>[] colliders;
 	public int aerial;
 }
 
@@ -82,17 +82,17 @@ public class PlayerControls : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		input = new InputState ();
 		input.command = Command.None;
-		input.collisions = new bool[4];
-		input.colliders = new Collider2D[4];
+		input.collisions = new int[4];
+		input.colliders = new List<GameObject>[4];
 		for (int i = 0; i < 4; i++) {
-			input.collisions [i] = false;
-			input.colliders [i] = null;
+			input.collisions [i] = 0;
+			input.colliders [i] = new List<GameObject>();
 		}
 		input.aerial = maxAerials;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		// Process the inputs and set a new input frame 
 		previous = state.CurrentState();
 		state.Process (input);
@@ -112,11 +112,11 @@ public class PlayerControls : MonoBehaviour {
 		} else if (current.name == "uppunch") {
 			rb.velocity = new Vector2 (0, upPunchStrength);
 		} else if (current.name == "leftbend") {
-			input.colliders [3].GetComponent<Bendable> ().Bend (gameObject);
+			input.colliders [3][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Left);
 		} else if (current.name == "rightbend") {
-			input.colliders [2].GetComponent<Bendable> ().Bend (gameObject);
+			input.colliders [2][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Right);
 		} else if (current.name == "upbend") {
-			input.colliders [1].GetComponent<Bendable> ().Bend (gameObject);
+			input.colliders [1][0].GetComponent<Interactable> ().Bend (gameObject, Direction.Up);
 		} 
 
 		// Transitions
@@ -142,19 +142,27 @@ public class PlayerControls : MonoBehaviour {
 		yield return null;
 	}
 
+	IEnumerator CreateHurtBox(GameObject colliderPrefab, float duration) {
+		float startTime = Time.time;
+		GameObject go = Instantiate (colliderPrefab, transform);
+		yield return new WaitForSeconds (duration);
+		Destroy (go);
+		yield return null;
+	}
+
 	string JumpTransition(InputState input) {
 		return "air";
 	}
 
 	string LeftPunchTransition(InputState input) {
-		if (input.collisions [1]) {
+		if (input.collisions [1] > 0) {
 			return "grounded";
 		}
 		return "air";
 	}
 
 	string RightPunchTransition(InputState input) {
-		if (input.collisions [1]) {
+		if (input.collisions [1] > 0) {
 			return "grounded";
 		}
 		return "air";
@@ -165,10 +173,16 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	string LeftBendTransition(InputState input) {
+		if (input.collisions [1] > 0) {
+			return "grounded";
+		}
 		return "air";
 	}
 
 	string RightBendTransition(InputState input) {
+		if (input.collisions [1] > 0) {
+			return "grounded";
+		}
 		return "air";
 	}
 
@@ -177,7 +191,7 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	string AirTransition(InputState input) {
-		if (input.collisions [1]) {
+		if (input.collisions [1] > 0) {
 			return "grounded";
 		} else if (input.command == Command.LeftPunch && input.aerial > 0) {
 			return "leftpunch";
@@ -190,26 +204,25 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	string MoveTransition(InputState input) {
-		if (input.command == Command.Jump && input.collisions[1]) {
+		if (input.command == Command.Jump && input.collisions[1] > 0) {
 			return "jump";
-		} else if (input.command == Command.LeftPunch && input.collisions [1]) {
-			print (1);
+		} else if (input.command == Command.LeftPunch && input.collisions [1] > 0) {
 			return "leftpunch";
-		} else if (input.command == Command.RightPunch && input.collisions [1]) {
+		} else if (input.command == Command.RightPunch && input.collisions [1] > 0) {
 			return "rightpunch";
-		} else if (input.command == Command.UpPunch && input.collisions [1]) {
+		} else if (input.command == Command.UpPunch && input.collisions [1] > 0) {
 			return "uppunch";
-		} else if (input.command == Command.LeftBend && input.colliders[3] != null && input.collisions [1]) {
+		} else if (input.command == Command.LeftBend && input.colliders[3].Count > 0 && input.collisions [1] > 0) {
 			return "leftbend";
-		} else if (input.command == Command.RightBend && input.colliders[2] != null && input.collisions [1]) {
+		} else if (input.command == Command.RightBend && input.colliders[2].Count > 0 && input.collisions [1] > 0) {
 			return "rightbend";
-		} else if (input.command == Command.UpBend && input.colliders[1] != null && input.collisions [1]) {
+		} else if (input.command == Command.UpBend && input.colliders[1].Count > 0 && input.collisions [1] > 0) {
 			return "upbend";
 		} else if (input.command != Command.Left && input.command != Command.Right) {
-			if (input.collisions [1]) {
+			if (input.collisions [1] > 0) {
 				return "grounded";
 			}
-			return "air";
+			return "grounded";
 		}
 		return null;
 	}
@@ -217,8 +230,7 @@ public class PlayerControls : MonoBehaviour {
 	string GroundedTransition(InputState input) {
 		if (input.command == Command.Jump) {
 			return "jump";
-		} else if (!input.collisions [1]) {
-			print ("what");
+		} else if (!(input.collisions [1] > 0)) {
 			return "air";
 		} else if (input.command == Command.Left || input.command == Command.Right) {
 			return "move";
@@ -228,11 +240,14 @@ public class PlayerControls : MonoBehaviour {
 			return "rightpunch";
 		} else if (input.command == Command.UpPunch) {
 			return "uppunch";
-		} else if (input.command == Command.LeftBend && input.colliders[3] != null) {
+		} else if (input.command == Command.LeftBend && input.colliders[3].Count > 0) {
 			return "leftbend";
-		} else if (input.command == Command.RightBend && input.colliders[2] != null) {
+		} else if (input.command == Command.RightBend && input.colliders[2].Count > 0) {
 			return "rightbend";
-		} else if (input.command == Command.UpBend && input.colliders[1] != null) {
+		} else if (input.command == Command.UpBend && input.colliders[1].Count > 0) {
+			foreach (var o in input.colliders[1]) {
+				print (o);
+			}
 			return "upbend";
 		}
 		return null;
