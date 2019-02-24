@@ -167,6 +167,7 @@ public class PlayerControls : MonoBehaviour {
     
 	void HandleAnimatorState() {
 		animator.SetBool("IsRun", current.name == "move");
+		animator.SetBool("IsFall", current.name == "air");
 
 		if (current.name == "uppunch") {
 			animator.SetTrigger("IsJump");
