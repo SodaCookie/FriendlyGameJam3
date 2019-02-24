@@ -246,6 +246,8 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	string GroundedTransition(InputState input) {
+		print(input.colliders[2].Count);
+		print(input.colliders[3].Count);
 		if (input.command == Command.Jump) {
 			return "jump";
 		} else if (!(input.collisions [1] > 0)) {

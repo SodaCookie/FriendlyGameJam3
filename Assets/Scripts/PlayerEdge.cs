@@ -6,20 +6,20 @@ public enum Direction {
 	Up, Down, Left, Right
 }
 
-[RequireComponent(typeof(EdgeCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class PlayerEdge : MonoBehaviour {
 
 	public Direction direction;
 	public PlayerControls controls;
 
-	void OnCollisionEnter2D(Collision2D other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		controls.input.collisions [(int)direction] += 1;
 		if (other.gameObject.GetComponent<Interactable> ()) {
 			controls.input.colliders [(int)direction].Add(other.gameObject);
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D other) {
+	void OnTriggerExit2D(Collider2D other) {
 		controls.input.collisions [(int)direction] -= 1;
 		if (other.gameObject.GetComponent<Interactable> ()) {
 			controls.input.colliders [(int)direction].Remove(other.gameObject);
