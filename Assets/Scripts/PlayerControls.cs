@@ -33,10 +33,13 @@ public class PlayerControls : MonoBehaviour {
 	public float timeSlow = 0.5f;
 	public Vector2 punchVelocity = new Vector2(10, 0);
 	public float punchDuration = 0.5f;
+	public Animator animator;
+	public GameObject visual;
 	[HideInInspector]
 	public InputState input;
 	public int keys = 0;
 
+	private Direction direction = Direction.Right;
 	private StateNode previous;
 	private StateNode current;
 	private StateMachine state;
@@ -105,20 +108,26 @@ public class PlayerControls : MonoBehaviour {
 			rb.velocity = new Vector2 (rb.velocity.x, upPunchStrength);
 		} else if (current.name == "move") {
 			if (input.command == Command.Left) {
+				direction = Direction.Left;
 				rb.velocity = new Vector2 (-moveSpeed, rb.velocity.y);
 			} else {
+				direction = Direction.Right;
 				rb.velocity = new Vector2 (moveSpeed, rb.velocity.y);
 			}
 		} else if (current.name == "leftpunch") {
+			direction = Direction.Left;
 			StartCoroutine (Dash (new Vector2 (-punchVelocity.x, punchVelocity.y)));
 		} else if (current.name == "rightpunch") {
+			direction = Direction.Right;
 			StartCoroutine (Dash (new Vector2 (punchVelocity.x, punchVelocity.y)));
 		} else if (current.name == "uppunch") {
 			rb.velocity = new Vector2 (0, upPunchStrength);
 		} else if (current.name == "leftbend") {
+			direction = Direction.Left;
 			input.colliders [3] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Left);
 			input.aerial = maxAerials;  // Reset aerials
 		} else if (current.name == "rightbend") {
+			direction = Direction.Right;
 			input.colliders [2] [0].GetComponent<Interactable> ().Bend (gameObject, Direction.Right);
 			input.aerial = maxAerials;  // Reset aerials
 		} else if (current.name == "upbend") {
@@ -140,10 +149,45 @@ public class PlayerControls : MonoBehaviour {
 			input.aerial--;
 		}
 
+        // Handle the animator state
+		if (animator != null) {
+			HandleAnimatorState();
+		}
+
+        // Handle the visual direction
+		if (visual != null) {
+			HandleDirection();
+		}
+        
 		if (input.command == Command.Reset) {
 			system.Reset ();
 		}
 		input.command = Command.None;
+	}
+    
+	void HandleAnimatorState() {
+		animator.SetBool("IsRun", current.name == "move");
+
+		if (current.name == "uppunch") {
+			animator.SetTrigger("IsJump");
+		}
+		else if (current.name == "leftpunch" || current.name == "rightpunch")
+        {
+            animator.SetTrigger("IsPunch");
+        }
+		else if (current.name == "leftbend" || current.name == "rightbend" || current.name == "upbend")
+        {
+            animator.SetTrigger("IsBend");
+        }
+	}
+
+	void HandleDirection() {
+		if (direction == Direction.Right) {
+			visual.transform.rotation = Quaternion.Euler(0, 135, 0);
+		}
+		else {
+			visual.transform.rotation = Quaternion.Euler(0, 225, 0);
+		}
 	}
 
 	IEnumerator Dash(Vector2 velocity) {
@@ -212,6 +256,7 @@ public class PlayerControls : MonoBehaviour {
 		} else if (input.command == Command.RightPunch && input.aerial > 0) {
 			return "rightpunch";
 		} else if (input.command == Command.UpPunch && input.aerial > 0) {
+			print(input.aerial);
 			return "uppunch";
 		} else if (input.command == Command.LeftBend && input.colliders[3].Count > 0) {
 			return "leftbend";
@@ -246,8 +291,6 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 	string GroundedTransition(InputState input) {
-		print(input.colliders[2].Count);
-		print(input.colliders[3].Count);
 		if (input.command == Command.Jump) {
 			return "jump";
 		} else if (!(input.collisions [1] > 0)) {
