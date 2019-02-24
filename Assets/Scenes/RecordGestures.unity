@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d44ef3b0774294f8c5545c3ac9f4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gesture: {fileID: 11400000, guid: 0b73aba9ecc3ef64cb1e02121ef9364d, type: 2}
+  gesture: {fileID: 11400000, guid: 28fb1fa690136b847a3751fd8ef19568, type: 2}
 --- !u!4 &629013633
 Transform:
   m_ObjectHideFlags: 0

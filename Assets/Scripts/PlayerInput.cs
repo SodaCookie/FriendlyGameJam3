@@ -48,7 +48,7 @@ public class PlayerInput : MonoBehaviour {
 			controls.input.command = Command.Left;
 		} else if (Input.GetKey (KeyCode.D) || (rightJoycon != null && rightJoycon.GetButton (Joycon.Button.SHOULDER_1))) {
 			controls.input.command = Command.Right;
-		} else if (Input.GetKey (KeyCode.R)) {
+		} else if (Input.GetKey (KeyCode.R) || rightJoycon != null && rightJoycon.GetButton (Joycon.Button.HOME)) {
 			controls.input.command = Command.Reset;
 		}
 	}
